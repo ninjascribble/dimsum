@@ -3,7 +3,11 @@ dimsum
 
 ![Build Status](https://secure.travis-ci.org/ninjascribble/dimsum.png)
 
-Dimsum generates greek text, and outputs it as plain text or HTML. You can use it on the client, or in your Node.js projects. 
+Dimsum generates greek text, and outputs it as plain text or HTML. You can use it on the client, or in your Node.js projects.
+
+## Installation
+
+    npm install dimsum@0.1
 
 ## Usage
 
