@@ -10,5 +10,11 @@
 		"copy"
 	],
 	"repository": "git://github.com/ninjascribble/dimsum.git",
+	"devDependencies": {
+		"mocha": "1.3.x"
+	},
+	"scripts": {
+		"test": "mocha"
+	},
 	"main": "dimsum.js"
 }
