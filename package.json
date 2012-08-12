@@ -9,5 +9,6 @@
 		"text",
 		"copy"
 	],
-	"repository": "git://github.com/ninjascribble/dimsum.git"
+	"repository": "git://github.com/ninjascribble/dimsum.git",
+	"main": "dimsum.js"
 }
