@@ -1,5 +1,9 @@
-/**
- * Dimsum can be used as a node_module or as a browser script.
+/*!
+ * dimsum.js v0.1
+ * https://github.com/ninjascribble/dimsum
+ * MIT licensed
+ * 
+ * Copyright (C) 2012 Scott Grogan, http://ninjascript.com
  */
 ;(function(global) {
 
