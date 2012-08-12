@@ -1,0 +1,13 @@
+{
+	"name": "dimsum",
+	"dsecription": "Lorem ipsum without all the copypasta",
+	"version": "0.1a",
+	"author": "Scott Grogan <scott@ninjascript.com>",
+	"keywords": [
+		"lipsum",
+		"greek",
+		"text",
+		"copy"
+	],
+	"repository": "git://github.com/ninjascribble/dimsum.git"
+}
