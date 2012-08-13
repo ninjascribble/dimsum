@@ -70,7 +70,7 @@ dimsum = global.dimsum = module.exports = exports = {
 	},
 
 	/**
-	 * Create a random chunk of lipsum. Returns an array containing
+	 * Create a random chunk of lipsum. Returns a string containing
 	 * the number of paragraphs specified.
 	 *
 	 * @param num_paragraphs
