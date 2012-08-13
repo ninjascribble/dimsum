@@ -1,44 +1,47 @@
-dimsum
-======
+# Dimsum
+
+*Dimsum generates lorem ipsum text. You can use it on the client, or in your Node.js projects.*
 
 ![Build Status](https://secure.travis-ci.org/ninjascribble/dimsum.png)
 
-Dimsum generates greek text, and outputs it as plain text or HTML. You can use it on the client, or in your Node.js projects.
-
-## Installation
-
     npm install dimsum@0.1
 
-## Usage
+### Quick start
 
 ```js
 var dimsum = require('dimsum');
 
 dimsum.generate();
-// => 'Impedit ex ex veniam doloribus possimus quod...'
+// => 'Impedit ex veniam doloribus possimus quod laudantium...'
 
 dimsum.generate(3);
-// => Returns 3 paragraphs of dimsum text.
+// => Returns 3 formatted paragraphs of text
 
 dimsum.configure({ format: 'html' });
-// => Configure dimsum to return HTML instead of plain text.
-
-dimsum.generate(2, { format: 'text' });
-// => Or override the configuration just this once.
+// => Configure dimsum to return HTML instead of plain text
 ```
 
-## API
-
-Dimsum contains a minimal API for controlling the amount of text it generates.
+### API
 
 ```js
-// Unformatted sentences and paragraphs
+// Generate paragraphs of text
+dimsum.generate([num_paragraphs, options]);
+
+// Configure dimsum for subsequent use
+dimsum.configure(options);
+
+// Create unformatted sentences and paragraphs
 dimsum.sentence();
 dimsum.paragraph();
 
-// Pre-composed blocks of text
+// Create pre-composed blocks of Lorem Ipsum
 dimsum.classic();
 dimsum.cicero32();
 dimsum.cicero33();
 ```
 
+### TODO
+
+* Support for "flavors" of text (e.g. Jabberwocky, Shakespeare, etc...)
+* In-browser unit tests
+* Automatic client-side replacement
