@@ -62,6 +62,11 @@ var classic = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do 
 			return this;
 		},
 
+		initialize: function() {
+			this.configure(defaults);
+			return this;
+		},
+
 		/**
 		 * Create a random chunk of lipsum. Returns an array containing
 		 * the number of paragraphs specified.

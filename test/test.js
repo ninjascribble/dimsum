@@ -3,6 +3,10 @@ var dimsum = require('../dimsum'),
 
 describe('dimsum', function() {
 
+	beforeEach(function() {
+		dimsum.initialize();
+	});
+
 	describe('#sentence()', function() {
 
 		var c, i, s = [];
@@ -29,29 +33,6 @@ describe('dimsum', function() {
 			for (i in s) {
 				assert.strictEqual(s[i].match(/[\.,]{2,}/g), null);
 			}
-		});
-
-	});
-
-	describe('#generate()', function() {
-
-		var p;
-
-		it('provides one paragraph of text by default', function() {
-			p = dimsum.generate();
-			assert.equal(p.match(/<p>|<\/p>/g), null);
-			assert.equal(p.match(/\r\n\r\n/g), null);
-		});
-
-		it('can override preconfigured options', function() {
-			dimsum.configure({ 'format': 'html' });
-			p = dimsum.generate(3, { 'format': 'text' });
-			assert.equal(p.match(/<p>|<\/p>/g), null);
-			assert.equal(p.match(/\r\n\r\n/g).length, 2);
-			p = dimsum.generate(3);
-			assert.equal(p.match(/<p>/g).length, 3);
-			assert.equal(p.match(/<\/p>/g).length, 3);
-			assert.equal(p.match(/\r\n\r\n/g), null);
 		});
 
 	});
@@ -108,7 +89,6 @@ describe('dimsum', function() {
 		it('can adjust the number of commas per sentence', function() {
 			s = [];
 			dimsum.configure({
-				words_per_sentence: [18,18],
 				commas_per_sentence: [1,1]
 			});
 			for (i = 0; i < 100; i++) {
@@ -117,6 +97,29 @@ describe('dimsum', function() {
 			for (i in s) {
 				assert.strictEqual(s[i].match(/\,/g).length, 1);
 			}
+		});
+
+	});
+
+	describe('#generate()', function() {
+
+		var p;
+
+		it('provides one paragraph of text by default', function() {
+			p = dimsum.generate();
+			assert.equal(p.match(/<p>|<\/p>/g), null);
+			assert.equal(p.match(/\r\n\r\n/g), null);
+		});
+
+		it('can override preconfigured options', function() {
+			dimsum.configure({ 'format': 'html' });
+			p = dimsum.generate(3, { 'format': 'text' });
+			assert.equal(p.match(/<p>|<\/p>/g), null);
+			assert.equal(p.match(/\r\n\r\n/g).length, 2);
+			p = dimsum.generate(3);
+			assert.equal(p.match(/<p>/g).length, 3);
+			assert.equal(p.match(/<\/p>/g).length, 3);
+			assert.equal(p.match(/\r\n\r\n/g), null);
 		});
 
 	});
