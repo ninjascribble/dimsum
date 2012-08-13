@@ -15,15 +15,9 @@ var classic = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do 
 
 	config = {
 		'format': 'text',
-		'bounds': {
-			'per_paragraph': {
-				sentences: [3, 5]
-			},
-			'per_sentence': {
-				words: [10, 31],
-				commas: [0, 4]
-			}
-		}
+		'sentences_per_paragraph': [3, 5],
+		'words_per_sentence': [10, 31],
+		'commas_per_sentence': [0, 4]
 	},
 
 	punct = [',','.',';',':','?'],
@@ -62,7 +56,7 @@ var classic = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do 
 		 *		An object containing new config values.
 		 */
 		configure: function(options) {
-			config = extend(config, options);
+			config = shallow_copy(config, options);
 			return this;
 		},
 
@@ -111,8 +105,8 @@ var classic = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do 
 
 			var word = '',
 				words = [],
-				num_words = range(config.bounds.per_sentence.words[0], config.bounds.per_sentence.words[1]),
-				num_commas = range(config.bounds.per_sentence.commas[0], config.bounds.per_sentence.commas[1]);
+				num_words = range(config.words_per_sentence[0], config.words_per_sentence[1]),
+				num_commas = range(config.commas_per_sentence[0], config.commas_per_sentence[1]);
 
 			// Get some words
 			while (words.length < num_words) {
@@ -144,7 +138,7 @@ var classic = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do 
 		 */
 		paragraph: function() {
 			var sentences = [],
-				num_sentences = range(config.bounds.per_paragraph.sentences[0], config.bounds.per_paragraph.sentences[1]);
+				num_sentences = range(config.sentences_per_paragraph[0], config.sentences_per_paragraph[1]);
 			while (sentences.length < num_sentences) {
 				sentences.push(this.sentence());
 			}
@@ -173,10 +167,10 @@ var classic = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do 
 	}
 
 	function range(min, max) {
-		return min + Math.random() * (max - min - 1) << 0;
+		return min + Math.random() * (max - min) << 0;
 	}
 
-	function extend() {
+	function shallow_copy() {
 		var i, key, result = {},
 			args = Array.prototype.slice.call(arguments);
 		for (i = 0; i < args.length; i++) {
