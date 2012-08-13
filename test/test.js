@@ -33,4 +33,46 @@ describe('dimsum', function() {
 
 	});
 
+	describe('#configure()', function() {
+
+		var p, d;
+
+		it('outputs plain text by default', function() {
+			p = dimsum.generate(3);
+			assert.equal(p.match(/<p>|<\/p>/g), null);
+			assert.equal(p.match(/\r\n\r\n/g).length, 2);
+		});
+
+		it('can output HTML text too!', function() {
+			dimsum.configure({ 'format': 'html' });
+			p = dimsum.generate(3);
+			assert.equal(p.match(/<p>/g).length, 3);
+			assert.equal(p.match(/<\/p>/g).length, 3);
+			assert.equal(p.match(/\r\n\r\n/g), null);
+		});
+
+		it('always returns dimsum', function() {
+			d = dimsum.configure({ 'format': 'text' });
+			assert.equal(d, dimsum);
+		});
+
+	});
+
+	describe('#generate()', function() {
+
+		var p;
+
+		it('can override preconfigured options', function() {
+			dimsum.configure({ 'format': 'html' });
+			p = dimsum.generate(3, { 'format': 'text' });
+			assert.equal(p.match(/<p>|<\/p>/g), null);
+			assert.equal(p.match(/\r\n\r\n/g).length, 2);
+			p = dimsum.generate(3);
+			assert.equal(p.match(/<p>/g).length, 3);
+			assert.equal(p.match(/<\/p>/g).length, 3);
+			assert.equal(p.match(/\r\n\r\n/g), null);
+		});
+
+	});
+
 });
