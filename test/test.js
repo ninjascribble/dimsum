@@ -39,7 +39,7 @@ describe('dimsum', function() {
 
 	describe('#configure()', function() {
 
-		var d, i, o, p, s;
+		var d, i, o;
 
 		it('always returns dimsum', function() {
 			d = dimsum.configure({ 'format': 'text' });
@@ -61,41 +61,29 @@ describe('dimsum', function() {
 		});
 
 		it('can adjust the number of sentences in a paragraph', function() {
-			p = [];
 			dimsum.configure({ 
 				sentences_per_paragraph: [2,2]
 			});
 			for (i = 0; i < 100; i++) {
-				p.push( dimsum.paragraph() );
-			}
-			for (i in p) {
-				assert.strictEqual(p[i].match(/[\.]{1,1}/g).length, 2);
+				assert.strictEqual(dimsum.paragraph().match(/[\.]{1,1}/g).length, 2);
 			}
 		});
 
 		it('can adjust the number of words per sentence', function() {
-			s = [];
 			dimsum.configure({ 
 				words_per_sentence: [1,1]
 			});
 			for (i = 0; i < 100; i++) {
-				s.push( dimsum.sentence() );
-			}
-			for (i in s) {
-				assert.strictEqual(s[i].split(' ').length, 1);
+				assert.strictEqual(dimsum.sentence().split(' ').length, 1);
 			}
 		});
 
 		it('can adjust the number of commas per sentence', function() {
-			s = [];
 			dimsum.configure({
 				commas_per_sentence: [1,1]
 			});
 			for (i = 0; i < 100; i++) {
-				s.push( dimsum.sentence() );
-			}
-			for (i in s) {
-				assert.strictEqual(s[i].match(/\,/g).length, 1);
+				assert.strictEqual(dimsum.sentence().match(/\,/g).length, 1);
 			}
 		});
 
