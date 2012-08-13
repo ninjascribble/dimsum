@@ -62,6 +62,12 @@ describe('dimsum', function() {
 
 		var p;
 
+		it('provides one paragraph of text by default', function() {
+			p = dimsum.generate();
+			assert.equal(p.match(/<p>|<\/p>/g), null);
+			assert.equal(p.match(/\r\n\r\n/g), null);
+		});
+
 		it('can override preconfigured options', function() {
 			dimsum.configure({ 'format': 'html' });
 			p = dimsum.generate(3, { 'format': 'text' });

@@ -28,10 +28,11 @@ var dimsum = global.dimsum = module.exports = exports = {},
 		}
 	},
 
-	punct = [',','.',';',':','?'];
-	punct.regexp = new RegExp('[' + punct.join('') + ']*','g');
+	punct = [',','.',';',':','?'],
 
-dimsum.latin = dedupe( normify([classic, cicero_1_10_32, cicero_1_10_33]).split(' ') );
+	punct_reg = new RegExp('[' + punct.join('') + ']*','g'),
+
+	latin = dedupe( normify([classic, cicero_1_10_32, cicero_1_10_33]).split(' ') );
 
 dimsum.classic = function() { return classic; };
 
@@ -48,7 +49,7 @@ dimsum.sentence = function() {
 
 	// Get some words
 	while (words.length < num_words) {
-		word = dimsum.latin[ range(0, dimsum.latin.length -1) ];
+		word = latin[ range(0, latin.length -1) ];
 		words.push(word);
 	}
 
@@ -81,9 +82,7 @@ dimsum.paragraph = function() {
 };
 
 dimsum.configure = function(options) {
-	for (key in options) {
-		config[key] = options[key];
-	}
+	config = extend(config, options);
 	return this;
 };
 
@@ -94,28 +93,37 @@ dimsum.configure = function(options) {
  * @param num_paragraphs How many paragraphs to generate.
  */
 dimsum.generate = function(num_paragraphs, options) {
-	var configuration = options || config,
+
+	var config_1 = config,
 		sentences = [],
-		paragraphs = [];
-	num_paragraphs = num_paragraphs || 1;
+		paragraphs = [],
+		result = '',
+		num_paragraphs = num_paragraphs || 1;
+
+	this.configure(options);
+
 	while (paragraphs.length < num_paragraphs) {
 		paragraphs.push(this.paragraph());
 	}
-	switch(configuration.format) {
+
+	switch(config.format) {
 		case 'text':
-			return paragraphs.join("\r\n\r\n");
+			result = paragraphs.join("\r\n\r\n");
 			break;
 		case 'html':
-			return '<p>' + paragraphs.join('</p><p>') + '</p>';
+			result = '<p>' + paragraphs.join('</p><p>') + '</p>';
 			break;
 	}
+
+	config = config_1;
+	return result;
 };
 
 /** Utils **/
 function normify(strings) {
 	return strings.join(' ')
 			.toLowerCase()
-			.replace(punct.regexp, '');
+			.replace(punct_reg, '');
 };
 
 function dedupe(array) {
@@ -132,6 +140,17 @@ function dedupe(array) {
 
 function range(min, max) {
 	return min + Math.random() * (max - min - 1) << 0;
+}
+
+function extend() {
+	var i, key, result = {},
+		args = Array.prototype.slice.call(arguments);
+	for (i = 0; i < args.length; i++) {
+		for (key in args[i]) {
+			result[key] = args[i][key];
+		}
+	}
+	return result;
 }
 
 }(this));
