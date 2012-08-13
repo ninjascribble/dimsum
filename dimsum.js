@@ -117,7 +117,10 @@ var classic = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do 
 			// Add some commas
 			for (var i = 0; i < num_commas; i++) {
 				word = range(4, words.length - 3);
-				if (words[word].match(',')) {
+				if (!words[word]) {
+					break;
+				}
+				else if (words[word].match(',')) {
 					i--;
 				}
 				else {

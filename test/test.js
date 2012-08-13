@@ -92,6 +92,19 @@ describe('dimsum', function() {
 			}
 		});
 
+		it('can adjust the number of words per sentence', function() {
+			s = [];
+			dimsum.configure({ 
+				words_per_sentence: [1,1]
+			});
+			for (i = 0; i < 100; i++) {
+				s.push( dimsum.sentence() );
+			}
+			for (i in s) {
+				assert.strictEqual(s[i].split(' ').length, 1);
+			}
+		});
+
 	});
 
 });
