@@ -7,6 +7,10 @@ describe('dimsum', function() {
 		dimsum.initialize();
 	});
 
+	it('wraps the #generate() method', function() {
+		assert.ok(dimsum().match(/^[A-Z][A-Za-z.,\s]*.$/));
+	});
+
 	describe('#sentence()', function() {
 
 		var c, i, s = [];

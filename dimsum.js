@@ -28,143 +28,145 @@ punct_reg = new RegExp('[' + punct.join('') + ']*','g'),
 
 latin = dedupe( normify([classic, cicero_1_10_32, cicero_1_10_33]).split(' ') ),
 
-dimsum = global.dimsum = module.exports = exports = {
+dimsum = global.dimsum = module.exports = exports = function(num_paragraphs, options) {
+	return dimsum.generate(num_paragraphs, options);
+};
 
-	/**
-	 * The standard Lorem Ipsum passage.
-	 */
-	classic: function() {
-		return classic;
-	},
+/**
+ * The standard Lorem Ipsum passage.
+ */
+dimsum.classic = function() {
+	return classic;
+};
 
-	/**
-	 * Section 1.10.32 of Cicero's "de Finibus Bonorum et Malorum".
-	 */
-	cicero32: function() {
-		return cicero_1_10_32;
-	},
+/**
+ * Section 1.10.32 of Cicero's "de Finibus Bonorum et Malorum".
+ */
+dimsum.cicero32 = function() {
+	return cicero_1_10_32;
+};
 
-	/**
-	 * Section 1.10.33 of Cicero's "de Finibus Bonorum et Malorum".
-	 */
-	cicero33: function() {
-		return cicero_1_10_33;
-	},
+/**
+ * Section 1.10.33 of Cicero's "de Finibus Bonorum et Malorum".
+ */
+dimsum.cicero33 = function() {
+	return cicero_1_10_33;
+};
 
-	/**
-	 * Restore default configuration.
-	 */
-	initialize: function() {
-		return this.configure(defaults);
-	},
+/**
+ * Restore default configuration.
+ */
+dimsum.initialize = function() {
+	return this.configure(defaults);
+};
 
-	/**
-	 * Override the current configuration.
-	 *
-	 * @param options
-	 *		An object containing new config values.
-	 */
-	configure: function(options) {
-		config = shallow_copy(config, options);
-		return this;
-	},
+/**
+ * Override the current configuration.
+ *
+ * @param options
+ *		An object containing new config values.
+ */
+dimsum.configure = function(options) {
+	config = shallow_copy(config, options);
+	return this;
+};
 
-	/**
-	 * Create a random chunk of lipsum. Returns a string containing
-	 * the number of paragraphs specified.
-	 *
-	 * @param num_paragraphs
-	 * 		How many paragraphs to generate.
-	 *
-	 * @param options
-	 *		An object containing new config values. The new options
-	 *		will only apply to this one execution.
-	 */
-	generate: function(num_paragraphs, options) {
+/**
+ * Create a random chunk of lipsum. Returns a string containing
+ * the number of paragraphs specified.
+ *
+ * @param num_paragraphs
+ * 		How many paragraphs to generate.
+ *
+ * @param options
+ *		An object containing new config values. The new options
+ *		will only apply to this one execution.
+ */
+dimsum.generate = function(num_paragraphs, options) {
 
-		var config_1 = config,
-			sentences = [],
-			paragraphs = [],
-			result = '',
-			num_paragraphs = num_paragraphs || 1;
+	var config_1 = config,
+		sentences = [],
+		paragraphs = [],
+		result = '',
+		num_paragraphs = num_paragraphs || 1;
 
-		// Temporarily overwrite the configuration
-		this.configure(options);
+	// Temporarily overwrite the configuration
+	this.configure(options);
 
-		// Add some paragraphs
-		while (paragraphs.length < num_paragraphs) {
-			paragraphs.push(this.paragraph());
-		}
-
-		// Make it pretty
-		switch(config.format) {
-			case 'text':
-				result = paragraphs.join("\r\n\r\n");
-				break;
-			case 'html':
-				result = '<p>' + paragraphs.join('</p><p>') + '</p>';
-				break;
-		}
-
-		// Restore the original configuration
-		config = config_1;
-
-		return result;
-	},
-
-	/**
-	 * Create a single sentence of random lipsum.
-	 */
-	sentence: function() {
-
-		var word = '',
-			words = [],
-			num_words = range(config.words_per_sentence[0], config.words_per_sentence[1]),
-			num_commas = range(config.commas_per_sentence[0], config.commas_per_sentence[1]);
-
-		// Get some words
-		while (words.length < num_words) {
-			word = latin[ range(0, latin.length -1) ];
-			words.push(word);
-		}
-
-		// Add some commas
-		for (var i = 0; i < num_commas; i++) {
-			word = range(4, words.length - 3);
-			if (!words[word]) {
-				break;
-			}
-			else if (words[word].match(',')) {
-				i--;
-			}
-			else {
-				words[word] += ',';
-			}
-		}
-
-		// Capitalize the first word
-		words = words.join(' ');
-		words = words.replace(/^[a-z]/i, words[0].toUpperCase());
-
-		// Punctuate and return
-		return words + '.';
-	},
-
-	/**
-	 * Create a single paragraph of random lipsum.
-	 */
-	paragraph: function() {
-
-		var sentences = [],
-			num_sentences = range(config.sentences_per_paragraph[0], config.sentences_per_paragraph[1]);
-
-		while (sentences.length < num_sentences) {
-			sentences.push(this.sentence());
-		}
-		return sentences.join(' ');
+	// Add some paragraphs
+	while (paragraphs.length < num_paragraphs) {
+		paragraphs.push(this.paragraph());
 	}
 
-}.initialize();
+	// Make it pretty
+	switch(config.format) {
+		case 'text':
+			result = paragraphs.join("\r\n\r\n");
+			break;
+		case 'html':
+			result = '<p>' + paragraphs.join('</p><p>') + '</p>';
+			break;
+	}
+
+	// Restore the original configuration
+	config = config_1;
+
+	return result;
+};
+
+/**
+ * Create a single sentence of random lipsum.
+ */
+dimsum.sentence = function() {
+
+	var word = '',
+		words = [],
+		num_words = range(config.words_per_sentence[0], config.words_per_sentence[1]),
+		num_commas = range(config.commas_per_sentence[0], config.commas_per_sentence[1]);
+
+	// Get some words
+	while (words.length < num_words) {
+		word = latin[ range(0, latin.length -1) ];
+		words.push(word);
+	}
+
+	// Add some commas
+	for (var i = 0; i < num_commas; i++) {
+		word = range(4, words.length - 3);
+		if (!words[word]) {
+			break;
+		}
+		else if (words[word].match(',')) {
+			i--;
+		}
+		else {
+			words[word] += ',';
+		}
+	}
+
+	// Capitalize the first word
+	words = words.join(' ');
+	words = words.replace(/^[a-z]/i, words[0].toUpperCase());
+
+	// Punctuate and return
+	return words + '.';
+};
+
+/**
+ * Create a single paragraph of random lipsum.
+ */
+dimsum.paragraph = function() {
+
+	var sentences = [],
+		num_sentences = range(config.sentences_per_paragraph[0], config.sentences_per_paragraph[1]);
+
+	while (sentences.length < num_sentences) {
+		sentences.push(this.sentence());
+	}
+	return sentences.join(' ');
+};
+
+dimsum.initialize();
 
 /** Utils **/
 function normify(strings) {
