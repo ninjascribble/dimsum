@@ -116,4 +116,16 @@ describe('dimsum', function() {
 
 	});
 
+	describe('#flavors()', function() {
+
+		var result, expected;
+
+		it('Only contains latin by default', function() {
+			expected = ['latin'];
+			result = dimsum.flavors();
+			assert.equal(result, expected);
+		});
+
+	});
+
 });

@@ -21,6 +21,10 @@ defaults = {
 	'commas_per_sentence': [0, 4]
 },
 
+flavors = {
+	'latin': dedupe( normify([classic, cicero_1_10_32, cicero_1_10_33]).split(' ') )
+},
+
 config = {},
 
 punct = [',','.',';',':','?','!'],
@@ -29,10 +33,6 @@ punct_reg = new RegExp('[' + punct.join('') + ']*','g'),
 
 dimsum = global.dimsum = module.exports = exports = function(num_paragraphs, options) {
 	return dimsum.generate(num_paragraphs, options);
-};
-
-dimsum.flavors = {
-	'latin': dedupe( normify([classic, cicero_1_10_32, cicero_1_10_33]).split(' ') )
 };
 
 /**
@@ -72,6 +72,32 @@ dimsum.initialize = function() {
 dimsum.configure = function(options) {
 	config = shallow_copy(config, options);
 	return this;
+};
+
+/**
+ * @return A list of flavors that are currently available.
+ */
+dimsum.flavors = function() {
+	return Object.keys(flavors);
+};
+
+/**
+ * Creates a flavor out of the ingredients.
+ *
+ * @return An array containing the words used in this flavor.
+ */
+dimsum.flavor = function(name, ingredients) {
+
+	if (arguments.length == 0) {
+		return;
+	}
+	else if (arguments.length == 1) {
+		return dedupe( normify([name]).split(' ') );
+	}
+	else {
+		flavors[name] = (typeof ingredients == 'Array') ? ingredients : dedupe( normify([ingredients]).split(' ') );
+		return flavors[name];
+	}
 };
 
 /**
@@ -125,8 +151,8 @@ dimsum.sentence = function() {
 	var word = '',
 		words = [],
 		num_words = range(config.words_per_sentence[0], config.words_per_sentence[1]),
-		num_commas = range(config.commas_per_sentence[0], config.commas_per_sentence[1])
-		flavor = dimsum.flavors[config.flavor];
+		num_commas = range(config.commas_per_sentence[0], config.commas_per_sentence[1]),
+		flavor = flavors[config.flavor];
 
 	// Get some words
 	while (words.length < num_words) {
