@@ -134,4 +134,60 @@ describe('dimsum', function() {
 
 	});
 
+	describe('#flavor()', function() {
+
+		it('Returns an existing flavor when given a key', function() {
+
+			var classic = normify( [dimsum.classic()] ).split(' ')
+			  , result = dimsum.flavor('latin')
+			  , i = 0
+			  , len = classic.length;
+
+			for (i; i < len; i++) {
+				assert.ok(result.indexOf( classic[i] ) > -1);
+			}
+
+		});
+
+		it('Returns a new flavor when given a string', function() {
+
+			var ingredients = "Space, the final frontier. These are the voyages of the starship Enterprise. Her five-year mission: to explore strange new worlds, to seek out new life and new civilizations, to boldly go where no man has gone before."
+			  , flavor = dimsum.flavor(ingredients)
+			  , i = 0
+			  , len = flavor.length;
+
+			for (i; i < len; i++) {
+				assert.ok(ingredients.match( new RegExp(flavor[i], 'i') ));
+			}
+
+		});
+
+		it('Registers a new flavor when given a key and a string', function() {
+
+			var key = 'spock'
+			  , ingredients = "Space, the final frontier. These are the voyages of the starship Enterprise. Her five-year mission: to explore strange new worlds, to seek out new life and new civilizations, to boldly go where no man has gone before."
+			  , flavor = dimsum.flavor(key, ingredients)
+			  , result = dimsum.flavor(key)
+			  , i = 0
+			  , len = flavor.length;
+
+			for (i; i < len; i++) {
+				assert.ok(result.indexOf( flavor[i] ) > -1);
+			}
+
+		});
+
+	});
+
+	/* Utils */
+
+	var punct = [',','.',';',':','?','!']
+	  , punct_reg = new RegExp('[' + punct.join('') + ']*','g');
+
+	function normify(strings) {
+		return strings.join(' ')
+				.toLowerCase()
+				.replace(punct_reg, '');
+	};
+
 });

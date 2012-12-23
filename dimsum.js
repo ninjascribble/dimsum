@@ -92,8 +92,13 @@ dimsum.flavor = function(name, ingredients) {
 		return;
 	}
 	else if (arguments.length == 1) {
-		// If there's only one argument, then assume 'name' is 'ingredients'.
-		return dedupe( normify([name]).split(' ') );
+		
+		if (name.match(/\s/)) {
+			return dedupe( normify([name]).split(' ') );
+		}
+		else {
+			return flavors[name];
+		}
 	}
 	else {
 		flavors[name] = (typeof ingredients == 'Array') ? ingredients : dedupe( normify([ingredients]).split(' ') );
@@ -218,11 +223,11 @@ function dedupe(array) {
 		result.push(key);
 	}
 	return result;
-}
+};
 
 function range(min, max) {
 	return min + Math.random() * (max - min) << 0;
-}
+};
 
 function shallow_copy() {
 
@@ -235,7 +240,7 @@ function shallow_copy() {
 		}
 	}
 	return result;
-}
+};
 
 /* Debug */
 // dimsum.normify = normify;
