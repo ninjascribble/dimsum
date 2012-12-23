@@ -15,6 +15,7 @@ cicero_1_10_33 = "At vero eos et accusamus et iusto odio dignissimos ducimus qui
 
 defaults = {
 	'format': 'text',
+	'flavor': 'latin',
 	'sentences_per_paragraph': [3, 5],
 	'words_per_sentence': [10, 31],
 	'commas_per_sentence': [0, 4]
@@ -22,14 +23,16 @@ defaults = {
 
 config = {},
 
-punct = [',','.',';',':','?'],
+punct = [',','.',';',':','?','!'],
 
 punct_reg = new RegExp('[' + punct.join('') + ']*','g'),
 
-latin = dedupe( normify([classic, cicero_1_10_32, cicero_1_10_33]).split(' ') ),
-
 dimsum = global.dimsum = module.exports = exports = function(num_paragraphs, options) {
 	return dimsum.generate(num_paragraphs, options);
+};
+
+dimsum.flavors = {
+	'latin': dedupe( normify([classic, cicero_1_10_32, cicero_1_10_33]).split(' ') )
 };
 
 /**
@@ -122,11 +125,12 @@ dimsum.sentence = function() {
 	var word = '',
 		words = [],
 		num_words = range(config.words_per_sentence[0], config.words_per_sentence[1]),
-		num_commas = range(config.commas_per_sentence[0], config.commas_per_sentence[1]);
+		num_commas = range(config.commas_per_sentence[0], config.commas_per_sentence[1])
+		flavor = dimsum.flavors[config.flavor];
 
 	// Get some words
 	while (words.length < num_words) {
-		word = latin[ range(0, latin.length -1) ];
+		word = flavor[ range(0, flavor.length -1) ];
 		words.push(word);
 	}
 
