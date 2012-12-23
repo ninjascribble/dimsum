@@ -21,15 +21,15 @@ defaults = {
 	'commas_per_sentence': [0, 4]
 },
 
-flavors = {
-	'latin': dedupe( normify([classic, cicero_1_10_32, cicero_1_10_33]).split(' ') )
-},
-
 config = {},
 
 punct = [',','.',';',':','?','!'],
 
 punct_reg = new RegExp('[' + punct.join('') + ']*','g'),
+
+flavors = {
+	'latin': dedupe( normify([classic, cicero_1_10_32, cicero_1_10_33]).split(' ') )
+},
 
 dimsum = global.dimsum = module.exports = exports = function(num_paragraphs, options) {
 	return dimsum.generate(num_paragraphs, options);
@@ -92,6 +92,7 @@ dimsum.flavor = function(name, ingredients) {
 		return;
 	}
 	else if (arguments.length == 1) {
+		// If there's only one argument, then assume 'name' is 'ingredients'.
 		return dedupe( normify([name]).split(' ') );
 	}
 	else {
@@ -235,5 +236,11 @@ function shallow_copy() {
 	}
 	return result;
 }
+
+/* Debug */
+// dimsum.normify = normify;
+// dimsum.dedupe = dedupe;
+// dimsum.range = range;
+// dimsum.shallow_copy = shallow_copy;
 
 }(this));

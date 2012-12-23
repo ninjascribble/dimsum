@@ -118,12 +118,18 @@ describe('dimsum', function() {
 
 	describe('#flavors()', function() {
 
-		var result, expected;
+		var result;
+
+		it('Returns a list of strings', function() {
+			result = dimsum.flavors();
+			assert.ok(result instanceof Array);
+			assert.equal(typeof result[0], 'string');
+		});
 
 		it('Only contains latin by default', function() {
-			expected = ['latin'];
 			result = dimsum.flavors();
-			assert.equal(result, expected);
+			assert.equal(result.length, 1);
+			assert.equal(result[0], 'latin');
 		});
 
 	});
