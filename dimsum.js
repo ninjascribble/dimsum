@@ -36,7 +36,7 @@ dimsum = global.dimsum = exports = function(num_paragraphs, options) {
 };
 
 // For client-side compatibility
-if (module) module.exports = dimsum;
+if (typeof module !== 'undefined') module.exports = dimsum;
 
 /**
  * The standard Lorem Ipsum passage.
