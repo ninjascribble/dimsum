@@ -11,10 +11,11 @@
 	],
 	"repository": "git://github.com/ninjascribble/dimsum.git",
 	"devDependencies": {
-		"mocha": "1.3.x"
+		"mocha": "1.3.x",
+		"chai": "1.4.x"
 	},
 	"scripts": {
 		"test": "./node_modules/.bin/mocha"
-	},
+	},		
 	"main": "dimsum.js"
 }

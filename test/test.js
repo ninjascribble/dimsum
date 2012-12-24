@@ -1,5 +1,13 @@
-var dimsum = require('../dimsum'),
+var dimsum, assert;
+
+if (typeof require == 'undefined') {
+	dimsum = dimsum;
+	assert = chai.assert;
+}
+else {
+	dimsum = require('../dimsum');
 	assert = require('assert');
+}
 
 describe('dimsum', function() {
 
