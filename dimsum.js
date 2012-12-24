@@ -31,9 +31,12 @@ flavors = {
 	'latin': dedupe( normify([classic, cicero_1_10_32, cicero_1_10_33]).split(' ') )
 },
 
-dimsum = global.dimsum = module.exports = exports = function(num_paragraphs, options) {
+dimsum = global.dimsum = exports = function(num_paragraphs, options) {
 	return dimsum.generate(num_paragraphs, options);
 };
+
+// For client-side compatibility
+if (module) module.exports = dimsum;
 
 /**
  * The standard Lorem Ipsum passage.
