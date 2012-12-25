@@ -23,7 +23,7 @@ defaults = {
 
 config = {},
 
-punct = [',','.',';',':','?','!'],
+punct = [',','.',';',':','?','!','"','—','\r','\n'],
 
 punct_reg = new RegExp('[' + punct.join('') + ']*','g'),
 
@@ -211,7 +211,14 @@ dimsum.initialize();
 function normify(strings) {
     return strings.join(' ')
             .toLowerCase()
-            .replace(punct_reg, '');
+            .replace(punct_reg, function(match) {
+                if (match.match(/\r|\n/)) {
+                    return ' ';
+                }
+                else {
+                    return '';
+                }
+            });
 };
 
 function dedupe(array) {
