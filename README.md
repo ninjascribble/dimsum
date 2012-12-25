@@ -11,10 +11,10 @@
 ```js
 var dimsum = require('dimsum');
 
-dimsum.generate();
+dimsum();
 // => 'Impedit ex veniam doloribus possimus quod laudantium...'
 
-dimsum.generate(3);
+dimsum(3);
 // => Returns 3 formatted paragraphs of text
 
 dimsum.configure({ format: 'html' });
@@ -25,7 +25,7 @@ dimsum.configure({ format: 'html' });
 
 ```js
 // Generate paragraphs of text
-dimsum.generate([num_paragraphs, options]);
+dimsum([num_paragraphs, options]);
 
 // Configure dimsum for subsequent use
 dimsum.configure(options);
@@ -43,5 +43,4 @@ dimsum.cicero33();
 ### TODO
 
 * Support for "flavors" of text (e.g. Jabberwocky, Shakespeare, etc...)
-* In-browser unit tests
 * Automatic client-side replacement
