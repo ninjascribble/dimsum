@@ -131,6 +131,12 @@ dimsum.generate = function(num_paragraphs, options) {
         result = '',
         num_paragraphs = num_paragraphs || 1;
 
+    // Shift args if only an options arg is passed
+    if (typeof num_paragraphs == 'object') {
+        options = num_paragraphs;
+        num_paragraphs = 1;
+    }
+
     // Temporarily overwrite the configuration
     this.configure(options);
 
@@ -208,6 +214,32 @@ dimsum.paragraph = function() {
     return sentences.join(' ');
 };
 
+/**
+ * Replace any ocurrences of {{dimsum}} with generated text.
+ */
+dimsum.parse = function(root) {
+
+    var reg = /{{dimsum[:]?([pst0-9]*)}}/ig,
+        root = root || document.getElementsByTagName('body')[0],
+        command = '';
+
+    if (typeof root == 'string') {
+        return root.replace(reg, function(m, sm) {
+            return make_dimsum(sm, 'text');
+        });
+    }
+    else if (root.children.length == 0) {
+        root.innerHTML = root.innerHTML.replace(reg, function(m, sm) {
+            return make_dimsum(sm, 'text');
+        });
+    }
+    else {
+        for (var i = 0, len = root.children.length; i < len; i++) {
+            dimsum.parse(root.children[i]);
+        }
+    }
+};
+
 dimsum.initialize();
 
 /** Utils **/
@@ -252,6 +284,37 @@ function shallow_copy() {
             result[key] = args[i][key];
         }
     }
+    return result;
+};
+
+function make_dimsum(shorthand, format) {
+    
+    var shorthand = shorthand || '',
+        format = format || 'text',
+        type = shorthand[0] || 'p',
+        len = parseInt( shorthand.slice(1, shorthand.length) ) || 1,
+        i = 0,
+        result = '';
+
+    switch (type) {
+
+        case 'p':
+            result = dimsum(len, { format: format });
+            break;
+
+        case 's':
+            for (i; i < len; i++) {
+                result += dimsum.sentence();
+            }
+            if (format == 'html') {
+                result = '<p>' + result + '</p>';
+            }
+            break;
+
+        default:
+            break;
+    }
+
     return result;
 };
 

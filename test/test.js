@@ -188,6 +188,44 @@ describe('dimsum', function() {
 
     });
 
+    describe('#parse()', function() {
+
+        var result;
+
+        it('Replaces {{dimsum}} with some text', function() {
+            result = dimsum.parse('Hello, {{dimsum}}');
+            assert.ok( result.match('Hello, ') );
+            assert.ok( result.replace('Hello, ', '').match(/[a-z]{5}/) );
+            assert.ok( !result.match(/\r\n\r\n/g) );
+            assert.ok( !result.match(/<\/p><p>/g) );
+        });
+
+        it('Replaces {{dimsum}} AND {{dimsum}} with exactly two paragraphs of text', function() {
+            result = dimsum.parse('{{dimsum}} AND {{dimsum}}').split('AND');
+            assert.ok( result[0].match(/[a-z]{5}/) );
+            assert.ok( !result[0].match(/\r\n\r\n/g) );
+            assert.ok( !result[0].match(/<\/p><p>/g) );
+            assert.ok( result[1].match(/[a-z]{5}/) );
+            assert.ok( !result[1].match(/\r\n\r\n/g) );
+            assert.ok( !result[1].match(/<\/p><p>/g) );
+        });
+
+        it('Replaces {{dimsum:p2}} with exactly two paragraphs of text', function() {
+            result = dimsum.parse('Hello, {{dimsum:p2}}');
+            assert.ok( result.match('Hello, ') );
+            assert.ok( result.replace('Hello, ', '').match(/[a-z]{5}/) );
+            assert.equal(result.match(/\r\n\r\n/g).length, 1);
+        });
+
+        it('Replaces {{dimsum:s3}} with exactly three sentences of text', function() {
+            result = dimsum.parse('Hello, {{dimsum:s3}}');
+            assert.ok( result.match('Hello, ') );
+            assert.ok( result.replace('Hello, ', '').match(/[a-z]{5}/) );
+            assert.equal(result.match(/\./g).length, 3);
+        });
+
+    });
+
     /* Utils */
 
     var punct = [',','.',';',':','?','!']
