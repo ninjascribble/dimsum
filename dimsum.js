@@ -257,7 +257,7 @@ dimsum.parse = function(root) {
 dimsum.initialize();
 
 if ('document' in this) {
-    this.addEventListener('load', function() {
+    this.document.addEventListener('DOMContentLoaded', function() {
         dimsum.parse(document.getElementsByTagName('body')[0]);
     });
 }
