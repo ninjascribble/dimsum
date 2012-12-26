@@ -134,10 +134,11 @@ describe('dimsum', function() {
             assert.equal(typeof result[0], 'string');
         });
 
-        it('Only contains latin by default', function() {
+        it('Contains "latin" and "jabberwocky" by default', function() {
             result = dimsum.flavors();
-            assert.equal(result.length, 1);
+            assert.equal(result.length, 2);
             assert.equal(result[0], 'latin');
+            assert.equal(result[1], 'jabberwocky');
         });
 
     });

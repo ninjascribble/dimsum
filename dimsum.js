@@ -13,6 +13,8 @@ cicero_1_10_32 = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
 
 cicero_1_10_33 = "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
 
+jabberwocky = "'Twas brillig, and the slithy toves Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe. Beware the Jabberwock, my son! The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun The frumious Bandersnatch! He took his vorpal sword in hand: Long time the manxome foe he sought So rested he by the Tumtum tree, And stood awhile in thought. And as in uffish thought he stood, The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood, And burbled as it came! One, two! One, two! and through and through The vorpal blade went snicker-snack! He left it dead, and with its head He went galumphing back. And hast thou slain the Jabberwock? Come to my arms, my beamish boy! O frabjous day! Callooh! Callay! He chortled in his joy. 'Twas brillig, and the slithy toves Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe.",
+
 defaults = {
     'format': 'text',
     'flavor': 'latin',
@@ -28,7 +30,8 @@ punct = [',','.',';',':','?','!','"','—','\r','\n'],
 punct_reg = new RegExp('[' + punct.join('') + ']*','g'),
 
 flavors = {
-    'latin': dedupe( normify([classic, cicero_1_10_32, cicero_1_10_33]).split(' ') )
+    'latin': dedupe( normify([classic, cicero_1_10_32, cicero_1_10_33]).split(' ') ),
+    'jabberwocky': dedupe( normify([jabberwocky]).split(' ') )
 },
 
 dimsum = global.dimsum = exports = function(num_paragraphs, options) {
