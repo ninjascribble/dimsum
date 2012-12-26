@@ -233,8 +233,6 @@ dimsum.parse = function(root) {
     // If it's a TextNode, then make sure it matches and replace it with some markup
     else if (root.nodeType == 3 && root.data.match(reg)) {
 
-        console.log(root.data);
-
         var div = document.createElement('div');
 
         div.className = 'dimsum';
