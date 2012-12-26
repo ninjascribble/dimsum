@@ -223,24 +223,44 @@ dimsum.parse = function(root) {
         root = root || document.getElementsByTagName('body')[0],
         command = '';
 
+    // If root is just a string, then return a string with replacement
     if (typeof root == 'string') {
         return root.replace(reg, function(m, sm) {
             return make_dimsum(sm, 'text');
         });
     }
-    else if (root.children.length == 0) {
-        root.innerHTML = root.innerHTML.replace(reg, function(m, sm) {
-            return make_dimsum(sm, 'text');
+
+    // If it's a TextNode, then make sure it matches and replace it with some markup
+    else if (root.nodeType == 3 && root.data.match(reg)) {
+
+        console.log(root.data);
+
+        var div = document.createElement('div');
+
+        div.className = 'dimsum';
+        div.innerHTML = root.data.replace(reg, function(m, sm) {
+            return make_dimsum(sm, 'html');
         });
+
+        root.parentNode.insertBefore(div, root);
+        root.parentNode.removeChild(root);
     }
+
+    // If it's not a TextNode, then keep on walking the DOM
     else {
-        for (var i = 0, len = root.children.length; i < len; i++) {
-            dimsum.parse(root.children[i]);
+        for (var i = 0, len = root.childNodes.length; i < len; i++) {
+            dimsum.parse(root.childNodes[i]);
         }
     }
 };
 
 dimsum.initialize();
+
+if ('document' in this) {
+    this.addEventListener('load', function() {
+        dimsum.parse(document.getElementsByTagName('body')[0]);
+    });
+}
 
 /** Utils **/
 function normify(strings) {
@@ -294,20 +314,21 @@ function make_dimsum(shorthand, format) {
         type = shorthand[0] || 'p',
         len = parseInt( shorthand.slice(1, shorthand.length) ) || 1,
         i = 0,
-        result = '';
+        result = [];
 
     switch (type) {
 
         case 'p':
-            result = dimsum(len, { format: format });
+            result.push(dimsum(len, { format: format }));
             break;
 
         case 's':
             for (i; i < len; i++) {
-                result += dimsum.sentence();
+                result.push(dimsum.sentence());
             }
             if (format == 'html') {
-                result = '<p>' + result + '</p>';
+                result.unshift('<p>');
+                result.push('</p>');
             }
             break;
 
@@ -315,7 +336,7 @@ function make_dimsum(shorthand, format) {
             break;
     }
 
-    return result;
+    return result.join(' ');
 };
 
 /* Debug */
