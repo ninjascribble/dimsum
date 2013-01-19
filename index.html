@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Dimsum by ninjascribble</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Dimsum</h1>
+        <p>Lipsum without all the copy+paste nonsense</p>
+
+        <p class="view"><a href="https://github.com/ninjascribble/dimsum">View the Project on GitHub <small>ninjascribble/dimsum</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/ninjascribble/dimsum/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/ninjascribble/dimsum/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/ninjascribble/dimsum">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Dimsum</h1>
+
+<p><em>Dimsum generates lorem ipsum text. You can use it on the client, or in your Node.js projects.</em></p>
+
+<p><img src="https://secure.travis-ci.org/ninjascribble/dimsum.png" alt="Build Status"></p>
+
+<pre><code>npm install dimsum@0.1
+</code></pre>
+
+<h3>Quick start</h3>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">dimsum</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'dimsum'</span><span class="p">);</span>
+
+<span class="nx">dimsum</span><span class="p">();</span>
+<span class="c1">// =&gt; 'Impedit ex veniam doloribus possimus quod laudantium...'</span>
+
+<span class="nx">dimsum</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="c1">// =&gt; Returns 3 formatted paragraphs of text</span>
+
+<span class="nx">dimsum</span><span class="p">.</span><span class="nx">configure</span><span class="p">({</span> <span class="nx">format</span><span class="o">:</span> <span class="s1">'html'</span> <span class="p">});</span>
+<span class="c1">// =&gt; Configure dimsum to return HTML instead of plain text</span>
+</pre></div>
+
+<h3>API</h3>
+
+<div class="highlight"><pre><span class="c1">// Generate paragraphs of text</span>
+<span class="nx">dimsum</span><span class="p">([</span><span class="nx">num_paragraphs</span><span class="p">,</span> <span class="nx">options</span><span class="p">]);</span>
+
+<span class="c1">// Configure dimsum for subsequent use</span>
+<span class="nx">dimsum</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
+
+<span class="c1">// Create unformatted sentences and paragraphs</span>
+<span class="nx">dimsum</span><span class="p">.</span><span class="nx">sentence</span><span class="p">();</span>
+<span class="nx">dimsum</span><span class="p">.</span><span class="nx">paragraph</span><span class="p">();</span>
+
+<span class="c1">// Create pre-composed blocks of Lorem Ipsum</span>
+<span class="nx">dimsum</span><span class="p">.</span><span class="nx">classic</span><span class="p">();</span>
+<span class="nx">dimsum</span><span class="p">.</span><span class="nx">cicero32</span><span class="p">();</span>
+<span class="nx">dimsum</span><span class="p">.</span><span class="nx">cicero33</span><span class="p">();</span>
+</pre></div>
+
+<h3>TODO</h3>
+
+<ul>
+<li>Support for "flavors" of text (e.g. Jabberwocky, Shakespeare, etc...)</li>
+<li>Automatic client-side replacement</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/ninjascribble">ninjascribble</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
