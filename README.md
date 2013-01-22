@@ -120,6 +120,6 @@ dimsum.flavor( 'key', 'a large body of text' );
 
 ### Misc
 
-Dimsum is licensed under the (MIT License)[http://opensource.org/licenses/MIT]. Feel free to use it however you like.
+Dimsum is licensed under the [MIT License](http://opensource.org/licenses/MIT). Feel free to use it however you like.
 
 Issues or feature requests? https://github.com/ninjascribble/dimsum/issues
