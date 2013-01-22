@@ -1,46 +1,125 @@
 # Dimsum
 
-*Dimsum generates lorem ipsum text. You can use it on the client, or in your Node.js projects.*
-
 ![Build Status](https://secure.travis-ci.org/ninjascribble/dimsum.png)
 
-    npm install dimsum@0.1
+Dimsum generates lorem ipsum text. You can use it in your Node.js and web projects.
 
-### Quick start
+
+### Installation
+
+With [npm](https://npmjs.org), just run:
+```bash
+npm install dimsum@0.1
+```
+
+Or grab the source and pull it into your own project from [GitHub](https://github.com/ninjascribble/dimsum):
+
+https://github.com/ninjascribble/dimsum/blob/master/dimsum.js
+
+### Dimsum in two lines
 
 ```js
 var dimsum = require('dimsum');
+dimsum(); // => 'Impedit ex veniam doloribus possimus quod laudantium...'
+```
 
-dimsum();
-// => 'Impedit ex veniam doloribus possimus quod laudantium...'
+You can configure Dimsum to return HTML, too:
 
-dimsum(3);
-// => Returns 3 formatted paragraphs of text
-
+```js
 dimsum.configure({ format: 'html' });
-// => Configure dimsum to return HTML instead of plain text
+dimsum(); // => '<p>Reiciendis fugit fuga ut placeat officiis nostrud...'
+```
+
+You can tell Dimsum exactly how much text you want:
+
+```js
+dimsum(3);
+```
+
+### In-browser replacement
+
+Dimsum can also inject lorem ipsum into your static HTML! Just include the library and add tokens to your HTML:
+
+```html
+<script src="/js/dimsum.js"></script>
+<article>{{dimsum}}</article>
+```
+
+Dimsum will replace the token with one paragraph of HTML-formatted lorem ipsum. If you want more, just ask:
+
+```html
+<article>{{dimsum:p3}}</article>
+```
+
+### Flavors
+
+Dimsum contains classic "latin" and "jabberwocky" flavors. Switching between them is easy:
+
+```js
+dimsum.configure({ flavor: 'jabberwocky' });
+dimsum() // => 'Frabjous snicker-snack to son brillig, took vorpal...'
+```
+
+You can even add your own flavors. Larger blocks of text work best:
+
+```js
+dimsum.flavor('outerspace', 'This is not science fiction. This is a sober \
+, realistic presentation prepared by leading scientists. I have found this \
+statement so informative and interesting that I wish to share it with all the \
+people of America, and indeed with all the people of the earth. I hope that it \
+can be widely disseminated by all news media for it clarifies many aspects of \
+space and space technology in a way which can be helpful to all people as the \
+United States proceeds with its peaceful program in space science and exploration. \
+Every person has the opportunity to share through understanding in the adventures \
+which lie ahead.');
+
+dimsum.configure({ flavor: 'outerspace' });
+dimsum() // => Science clarifies every to realistic for news...
 ```
 
 ### API
 
+**JavaScript:**
 ```js
-// Generate paragraphs of text
-dimsum([num_paragraphs, options]);
+// One unformatted paragraph of lorem ipsum
+dimsum();
 
-// Configure dimsum for subsequent use
-dimsum.configure(options);
+// Three unformatted paragraphs of lorem ipsum
+dimsum(3);
 
-// Create unformatted sentences and paragraphs
-dimsum.sentence();
-dimsum.paragraph();
+// Three HTML-formatted paragraphs of lorem ipsum
+dimsum(3, { format: 'html' });
 
-// Create pre-composed blocks of Lorem Ipsum
-dimsum.classic();
-dimsum.cicero32();
-dimsum.cicero33();
+// Two unformatted sentences of lorem ipsum
+dimsum.sentence(2);
+
+// Always use HTML
+dimsum.configure({ format: 'html' });
+
+// Always use Jabberwocky
+dimsum.configure({ flavor: 'jabberwocky' });
+
+// Get a list of available flavors
+dimsum.flavors();
+
+// Add a new flavor
+dimsum.flavor( 'key', 'a large body of text' );
 ```
 
-### TODO
+**HTML:**
+```html
+<!-- Replace with one paragraph of lorem ipsum -->
+<div>{{dimsum}}</div>
 
-* Support for "flavors" of text (e.g. Jabberwocky, Shakespeare, etc...)
-* Automatic client-side replacement
+<!-- Replace with three paragraphs of lorem ipsum -->
+<div>{{dimsum:p3}}</div>
+
+<!-- Replace with four sentences of lorem ipsum -->
+<span>{{dimsum:s4}}</div>
+```
+
+### Misc
+
+Dimsum is licensed under the (MIT License)[http://opensource.org/licenses/MIT]. Feel free to use it however you like.
+
+Issues or feature requests? https://github.com/ninjascribble/dimsum/issues
