@@ -16,7 +16,7 @@
     <div class="wrapper">
       <header>
         <h1>Dimsum</h1>
-        <p>Lipsum without all the copy+paste nonsense</p>
+        <p>Lorem ipsum without all that copy+paste nonsense</p>
 
         <p class="view"><a href="https://github.com/ninjascribble/dimsum">View the Project on GitHub <small>ninjascribble/dimsum</small></a></p>
 
@@ -30,51 +30,121 @@
       <section>
         <h1>Dimsum</h1>
 
-<p><em>Dimsum generates lorem ipsum text. You can use it on the client, or in your Node.js projects.</em></p>
-
 <p><img src="https://secure.travis-ci.org/ninjascribble/dimsum.png" alt="Build Status"></p>
 
-<pre><code>npm install dimsum@0.1
-</code></pre>
+<p>Dimsum generates lorem ipsum text. You can use it in your Node.js and web projects.</p>
 
-<h3>Quick start</h3>
+<h3>Installation</h3>
+
+<p>With <a href="https://npmjs.org">npm</a>, just run:</p>
+
+<div class="highlight"><pre>npm install dimsum@0.1
+</pre></div>
+
+<p>Or grab the source and pull it into your own project from <a href="https://github.com/ninjascribble/dimsum">GitHub</a>:</p>
+
+<p><a href="https://github.com/ninjascribble/dimsum/blob/master/dimsum.js">https://github.com/ninjascribble/dimsum/blob/master/dimsum.js</a></p>
+
+<h3>Dimsum in two lines</h3>
 
 <div class="highlight"><pre><span class="kd">var</span> <span class="nx">dimsum</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'dimsum'</span><span class="p">);</span>
+<span class="nx">dimsum</span><span class="p">();</span> <span class="c1">// =&gt; 'Impedit ex veniam doloribus possimus quod laudantium...'</span>
+</pre></div>
 
-<span class="nx">dimsum</span><span class="p">();</span>
-<span class="c1">// =&gt; 'Impedit ex veniam doloribus possimus quod laudantium...'</span>
+<p>You can configure Dimsum to return HTML, too:</p>
 
-<span class="nx">dimsum</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
-<span class="c1">// =&gt; Returns 3 formatted paragraphs of text</span>
+<div class="highlight"><pre><span class="nx">dimsum</span><span class="p">.</span><span class="nx">configure</span><span class="p">({</span> <span class="nx">format</span><span class="o">:</span> <span class="s1">'html'</span> <span class="p">});</span>
+<span class="nx">dimsum</span><span class="p">();</span> <span class="c1">// =&gt; '&lt;p&gt;Reiciendis fugit fuga ut placeat officiis nostrud...'</span>
+</pre></div>
 
-<span class="nx">dimsum</span><span class="p">.</span><span class="nx">configure</span><span class="p">({</span> <span class="nx">format</span><span class="o">:</span> <span class="s1">'html'</span> <span class="p">});</span>
-<span class="c1">// =&gt; Configure dimsum to return HTML instead of plain text</span>
+<p>You can tell Dimsum exactly how much text you want:</p>
+
+<div class="highlight"><pre><span class="nx">dimsum</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</pre></div>
+
+<h3>In-browser replacement</h3>
+
+<p>Dimsum can also inject lorem ipsum into your static HTML! Just include the library and add tokens to your HTML:</p>
+
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/js/dimsum.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;article&gt;</span>{{dimsum}}<span class="nt">&lt;/article&gt;</span>
+</pre></div>
+
+<p>Dimsum will replace the token with one paragraph of HTML-formatted lorem ipsum. If you want more, just ask:</p>
+
+<div class="highlight"><pre><span class="nt">&lt;article&gt;</span>{{dimsum:p3}}<span class="nt">&lt;/article&gt;</span>
+</pre></div>
+
+<h3>Flavors</h3>
+
+<p>Dimsum contains classic "latin" and "jabberwocky" flavors. Switching between them is easy:</p>
+
+<div class="highlight"><pre><span class="nx">dimsum</span><span class="p">.</span><span class="nx">configure</span><span class="p">({</span> <span class="nx">flavor</span><span class="o">:</span> <span class="s1">'jabberwocky'</span> <span class="p">});</span>
+<span class="nx">dimsum</span><span class="p">()</span> <span class="c1">// =&gt; 'Frabjous snicker-snack to son brillig, took vorpal...'</span>
+</pre></div>
+
+<p>You can even add your own flavors. Larger blocks of text work best:</p>
+
+<div class="highlight"><pre><span class="nx">dimsum</span><span class="p">.</span><span class="nx">flavor</span><span class="p">(</span><span class="s1">'outerspace'</span><span class="p">,</span> <span class="s1">'This is not science fiction. This is a sober \</span>
+<span class="s1">, realistic presentation prepared by leading scientists. I have found this \</span>
+<span class="s1">statement so informative and interesting that I wish to share it with all the \</span>
+<span class="s1">people of America, and indeed with all the people of the earth. I hope that it \</span>
+<span class="s1">can be widely disseminated by all news media for it clarifies many aspects of \</span>
+<span class="s1">space and space technology in a way which can be helpful to all people as the \</span>
+<span class="s1">United States proceeds with its peaceful program in space science and exploration. \</span>
+<span class="s1">Every person has the opportunity to share through understanding in the adventures \</span>
+<span class="s1">which lie ahead.'</span><span class="p">);</span>
+
+<span class="nx">dimsum</span><span class="p">.</span><span class="nx">configure</span><span class="p">({</span> <span class="nx">flavor</span><span class="o">:</span> <span class="s1">'outerspace'</span> <span class="p">});</span>
+<span class="nx">dimsum</span><span class="p">()</span> <span class="c1">// =&gt; Science clarifies every to realistic for news...</span>
 </pre></div>
 
 <h3>API</h3>
 
-<div class="highlight"><pre><span class="c1">// Generate paragraphs of text</span>
-<span class="nx">dimsum</span><span class="p">([</span><span class="nx">num_paragraphs</span><span class="p">,</span> <span class="nx">options</span><span class="p">]);</span>
+<p><strong>JavaScript:</strong></p>
 
-<span class="c1">// Configure dimsum for subsequent use</span>
-<span class="nx">dimsum</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
+<div class="highlight"><pre><span class="c1">// One unformatted paragraph of lorem ipsum</span>
+<span class="nx">dimsum</span><span class="p">();</span>
 
-<span class="c1">// Create unformatted sentences and paragraphs</span>
-<span class="nx">dimsum</span><span class="p">.</span><span class="nx">sentence</span><span class="p">();</span>
-<span class="nx">dimsum</span><span class="p">.</span><span class="nx">paragraph</span><span class="p">();</span>
+<span class="c1">// Three unformatted paragraphs of lorem ipsum</span>
+<span class="nx">dimsum</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 
-<span class="c1">// Create pre-composed blocks of Lorem Ipsum</span>
-<span class="nx">dimsum</span><span class="p">.</span><span class="nx">classic</span><span class="p">();</span>
-<span class="nx">dimsum</span><span class="p">.</span><span class="nx">cicero32</span><span class="p">();</span>
-<span class="nx">dimsum</span><span class="p">.</span><span class="nx">cicero33</span><span class="p">();</span>
+<span class="c1">// Three HTML-formatted paragraphs of lorem ipsum</span>
+<span class="nx">dimsum</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="p">{</span> <span class="nx">format</span><span class="o">:</span> <span class="s1">'html'</span> <span class="p">});</span>
+
+<span class="c1">// Two unformatted sentences of lorem ipsum</span>
+<span class="nx">dimsum</span><span class="p">.</span><span class="nx">sentence</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+<span class="c1">// Always use HTML</span>
+<span class="nx">dimsum</span><span class="p">.</span><span class="nx">configure</span><span class="p">({</span> <span class="nx">format</span><span class="o">:</span> <span class="s1">'html'</span> <span class="p">});</span>
+
+<span class="c1">// Always use Jabberwocky</span>
+<span class="nx">dimsum</span><span class="p">.</span><span class="nx">configure</span><span class="p">({</span> <span class="nx">flavor</span><span class="o">:</span> <span class="s1">'jabberwocky'</span> <span class="p">});</span>
+
+<span class="c1">// Get a list of available flavors</span>
+<span class="nx">dimsum</span><span class="p">.</span><span class="nx">flavors</span><span class="p">();</span>
+
+<span class="c1">// Add a new flavor</span>
+<span class="nx">dimsum</span><span class="p">.</span><span class="nx">flavor</span><span class="p">(</span> <span class="s1">'key'</span><span class="p">,</span> <span class="s1">'a large body of text'</span> <span class="p">);</span>
 </pre></div>
 
-<h3>TODO</h3>
+<p><strong>HTML:</strong></p>
 
-<ul>
-<li>Support for "flavors" of text (e.g. Jabberwocky, Shakespeare, etc...)</li>
-<li>Automatic client-side replacement</li>
-</ul>
+<div class="highlight"><pre><span class="c">&lt;!-- Replace with one paragraph of lorem ipsum --&gt;</span>
+<span class="nt">&lt;div&gt;</span>{{dimsum}}<span class="nt">&lt;/div&gt;</span>
+
+<span class="c">&lt;!-- Replace with three paragraphs of lorem ipsum --&gt;</span>
+<span class="nt">&lt;div&gt;</span>{{dimsum:p3}}<span class="nt">&lt;/div&gt;</span>
+
+<span class="c">&lt;!-- Replace with four sentences of lorem ipsum --&gt;</span>
+<span class="nt">&lt;span&gt;</span>{{dimsum:s4}}<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+<h3>Misc</h3>
+
+<p>Dimsum is licensed under the (MIT License)[<a href="http://opensource.org/licenses/MIT">http://opensource.org/licenses/MIT</a>]. Feel free to use it however you like.</p>
+
+<p>Issues or feature requests? <a href="https://github.com/ninjascribble/dimsum/issues">https://github.com/ninjascribble/dimsum/issues</a></p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/ninjascribble">ninjascribble</a></p>
