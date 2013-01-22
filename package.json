@@ -1,13 +1,17 @@
 {
     "name": "dimsum",
     "dsecription": "Lorem ipsum without all the copypasta",
-    "version": "0.1.5",
+    "version": "0.1.7",
     "author": "Scott Grogan <scott@ninjascript.com>",
     "keywords": [
         "lipsum",
         "greek",
         "text",
-        "copy"
+        "copy",
+	"lorem ipsum",
+	"filler",
+	"jabberwocky",
+	"content"
     ],
     "repository": "git://github.com/ninjascribble/dimsum.git",
     "devDependencies": {
