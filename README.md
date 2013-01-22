@@ -1,9 +1,8 @@
 # Dimsum
 
-![Build Status](https://secure.travis-ci.org/ninjascribble/dimsum.png)
-
 Dimsum generates lorem ipsum text. You can use it in your Node.js and web projects.
 
+![Build Status](https://secure.travis-ci.org/ninjascribble/dimsum.png)
 
 ### Installation
 
