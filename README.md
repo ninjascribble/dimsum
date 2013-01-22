@@ -12,9 +12,7 @@ With [npm](https://npmjs.org), just run:
 npm install dimsum@0.1
 ```
 
-Or grab the source and pull it into your own project from [GitHub](https://github.com/ninjascribble/dimsum):
-
-https://github.com/ninjascribble/dimsum/blob/master/dimsum.js
+Or grab the source from [GitHub](https://github.com/ninjascribble/dimsum), and pull it into your own project.
 
 ### Dimsum in two lines
 
