@@ -274,7 +274,7 @@ if ('document' in this) {
 
 /** Utils **/
 function normify(strings) {
-  let result = strings.join(' ').replace(/\r|\n/, ' ');
+  var result = strings.join(' ').replace(/\r|\n/, ' ');
 
   if (config.use_sentence_case == true) {
     result = result.toLowerCase();
