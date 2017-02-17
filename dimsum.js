@@ -2,7 +2,7 @@
  * dimsum.js v0.1
  * https://github.com/ninjascribble/dimsum
  * MIT licensed
- * 
+ *
  * Copyright (C) 2012 Scott Grogan, http://ninjascript.com
  */
 ;(function(global) {
@@ -20,10 +20,12 @@ defaults = {
     'flavor': 'latin',
     'sentences_per_paragraph': [3, 5],
     'words_per_sentence': [10, 31],
-    'commas_per_sentence': [0, 4]
+    'commas_per_sentence': [0, 4],
+    'use_sentence_case': true,
+    'strip_punctuation': true
 },
 
-config = {},
+config = Object.assign({}, defaults),
 
 punct = [',','.',';',':','?','!','"','—','\r','\n'],
 
@@ -98,7 +100,7 @@ dimsum.flavor = function(name, ingredients) {
         return;
     }
     else if (arguments.length == 1) {
-        
+
         if (name.match(/\s/)) {
             return dedupe( normify([name]).split(' ') );
         }
@@ -262,16 +264,17 @@ if ('document' in this) {
 
 /** Utils **/
 function normify(strings) {
-    return strings.join(' ')
-            .toLowerCase()
-            .replace(punct_reg, function(match) {
-                if (match.match(/\r|\n/)) {
-                    return ' ';
-                }
-                else {
-                    return '';
-                }
-            });
+  let result = strings.join(' ').replace(/\r|\n/, ' ');
+
+  if (config.use_sentence_case == true) {
+    result = result.toLowerCase();
+  }
+
+  if (config.strip_punctuation == true) {
+    result = result.replace(punct_reg, '');
+  }
+
+  return result;
 };
 
 function dedupe(array) {
@@ -306,7 +309,7 @@ function shallow_copy() {
 };
 
 function make_dimsum(shorthand, format) {
-    
+
     var shorthand = shorthand || '',
         format = format || 'text',
         type = shorthand[0] || 'p',
