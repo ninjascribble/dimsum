@@ -1,13 +1,5 @@
-var dimsum, assert;
-
-if (typeof require == 'undefined') {
-    dimsum = dimsum;
-    assert = chai.assert;
-}
-else {  
-    dimsum = require('../dimsum');
-    assert = require('assert');
-}
+const dimsum = require('../dimsum');
+const assert = require('assert');
 
 describe('dimsum', function() {
 
@@ -23,21 +15,23 @@ describe('dimsum', function() {
 
         var c, i, s = [];
 
-        for (i = 0; i < 100; i++) {
-            s.push( dimsum.sentence() );
-        }
+        before(function () {
+          for (i = 0; i < 100; i++) {
+              s.push( dimsum.sentence() );
+          }
+        });
 
         it('should start with a capital letter', function() {
             for (i in s) {
                 c = s[i][0];
-                assert.equal(c, c.toUpperCase());   
+                assert.equal(c, c.toUpperCase());
             }
         });
 
         it('should end with a period', function() {
             for (i in s) {
                 c = s[i][ s[i].length - 1 ];
-                assert.equal(c, '.');   
+                assert.equal(c, '.');
             }
         });
 
@@ -73,7 +67,7 @@ describe('dimsum', function() {
         });
 
         it('can adjust the number of sentences in a paragraph', function() {
-            dimsum.configure({ 
+            dimsum.configure({
                 sentences_per_paragraph: [2,2]
             });
             for (i = 0; i < 100; i++) {
@@ -82,7 +76,7 @@ describe('dimsum', function() {
         });
 
         it('can adjust the number of words per sentence', function() {
-            dimsum.configure({ 
+            dimsum.configure({
                 words_per_sentence: [1,1]
             });
             for (i = 0; i < 100; i++) {
