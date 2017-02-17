@@ -30,6 +30,8 @@ config = Object.assign({}, defaults),
 punct = [',','.',';',':','?','!','"','—','\r','\n'],
 
 punct_reg = new RegExp('[' + punct.join('') + ']*','g'),
+end_punct_reg = /[.?!"]/g,
+mid_punct_reg = /[,;:-]/g,
 
 flavors = {
     'latin': dedupe( normify([classic, cicero_1_10_32, cicero_1_10_33]).split(' ') ),
@@ -199,6 +201,14 @@ dimsum.sentence = function() {
     words = words.replace(/^[a-z]/i, words[0].toUpperCase());
 
     // Punctuate and return
+    if (words[words.length - 1].match(end_punct_reg)) {
+      return words;
+    }
+
+    if (words[words.length - 1].match(mid_punct_reg)) {
+      return words.slice(0, words.length - 1) + '.';
+    }
+
     return words + '.';
 };
 
